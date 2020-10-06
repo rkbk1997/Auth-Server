@@ -59,10 +59,14 @@ router.post("/login", (req, res) => {
       console.log(error);
     } else {
       if (!user) {
-        res.status(400).send({ status: "Invalid Username" });
+        res
+          .status(400)
+          .send({ fieldName: "username", errorMessage: "Invalid Username" });
       } else {
         if (user.password !== userData.password) {
-          res.status(400).send({ status: "Invalid Password" });
+          res
+            .status(400)
+            .send({ fieldName: "password", errorMessage: "Invalid Password" });
         } else {
           let payload = { subject: user._id };
           let token = jwt.sign(payload, "secret");
